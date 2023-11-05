@@ -1,9 +1,11 @@
-import enum
 import psutil
-
+import tools_config
 class Tool:
+    """Creates tool object to access information on server
+    """
     def __init__(self) -> None:
-        pass
+        self.path = tools_config.Path().disk_path
+    
     def get_mem(self) -> int:
         """returns the percentage of virtual memory in use"""
         memory = psutil.virtual_memory()
@@ -21,5 +23,5 @@ class Tool:
     
     def get_disk(self) -> int:
         """returns the percentage of the disk is in use"""
-        disk = psutil.disk_usage("/")
+        disk = psutil.disk_usage(self.path)
         return (disk.used/disk.total) * 100
